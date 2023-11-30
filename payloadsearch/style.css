@@ -81,7 +81,10 @@ a, a:link, a:visited {
   color: white;
 }
 
-
+.highlighted {
+  color: white;
+  background-color: #634120;
+}
 
 /* Add to universal?: */
 

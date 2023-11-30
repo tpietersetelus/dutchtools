@@ -202,12 +202,35 @@ function copy_contents_payload(input_id){
 	textArea.remove();
 }
 
-function mark_clicked_link(input_id){
-    if (input_id != "UNSELECTED"){
-        var clicked_link_element = document.getElementById(input_id);
-        clicked_link_element.classList.add("my-class");
+
+function set_search_highlight_in_list(input_term, input_id){
+    var list_items = document.getElementById(input_id).getElementsByTagName("li");
+
+    for(const elem of list_items){
+        var div_contents = elem.innerHTML;
+        if (input_term != "") { // Make sure input isn't empty
+    
+            var to_be_replaced = String.raw`${input_term}`;
+            var regex_expression = new RegExp(to_be_replaced, "ig");
+    
+            div_contents.match(regex_expression).forEach((element) => {
+                span_text = String.raw`<span class="highlighted">${element}</span>`
+                //console.log(span_text)
+                div_contents = div_contents.replace(element, span_text)
+             });
+    
+             
+    
+             elem.innerHTML = div_contents;
+        }
+    
+
+
     }
+
 }
+
+
 // UPDATE FUNCTION
 function update_all(){
     // Get values of search/options
@@ -231,6 +254,10 @@ function update_all(){
 
     // Add selected file names to search result list
     set_results_list(selected_file_list, "searchresults");
+
+    // Highlight search term in result list and in text (depending on the value of target dropdown value)
+    /// (add if else stuff)
+    set_search_highlight_in_list(search_bar_value, "searchresults");
 
 }
 
